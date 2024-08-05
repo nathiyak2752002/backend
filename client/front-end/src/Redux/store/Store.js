@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import AllActionsData from "../actions/Actions";
+import AllActionsData from "../actions/index";
 
 
 const Store=configureStore({

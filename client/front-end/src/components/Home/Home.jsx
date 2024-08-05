@@ -1,8 +1,11 @@
 import React, { useEffect,useState } from 'react'
 import GetMethod from './../../ApiCalls/GetMethod';
-import PostMethod from './../../ApiCalls/PostMethod';
-
+import {useDispatch,useSelector} from 'react-redux'; 
+import { PostMethodAction } from '../../Redux/actions/Actions';
+import usePostMethod from './../../ApiCalls/PostMethod';
 function Home() {
+
+  const dispatch=useDispatch();
 
   const [user,setUser]=useState({
     name:"",
@@ -27,7 +30,8 @@ function Home() {
   ]
   const {GetDataApi,response,loading,error}=GetMethod();
 
-  const {PostDataApi}=PostMethod();  
+  const {PostDataApi}=usePostMethod();
+
 
 
   useEffect(()=>{
@@ -53,11 +57,14 @@ function Home() {
     if(name && age)
     {
 
+
       const data={
         name:name,
         age:Number(age)
       }
-      PostDataApi("/post/create","",data);
+
+      PostDataApi("/post/create","",data)
+      
     }
   }
   return (
@@ -80,7 +87,7 @@ function Home() {
 
 <div className='mt-3 mb-3'><button onClick={addChange} className='border p-2 bg-blue-500 rounded cursor-pointer text-white'>+ Add User</button></div>
 
-{/* {response?.data?.length>0?<>
+{response?.data?.length>0?<>
 
 {response?.data?.map((item,index)=>{
   return(
@@ -89,7 +96,7 @@ function Home() {
     </div>
   )
 })}
-</>:<>No Data Found</>} */}
+</>:<>No Data Found</>}
     </div>
   )
 }

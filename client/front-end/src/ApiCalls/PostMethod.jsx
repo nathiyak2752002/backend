@@ -1,35 +1,27 @@
-
-import React,{useState} from 'react';
+import { useState } from 'react';
 import InstanceBaseUrl from '../Config/AxiosConfig';
-function PostMethod() {
-    const [response,setResponse]=useState([]);
-    const [loading,setLoading]=useState(false);
-    const [error,setError]=useState("");
-    const PostDataApi=async(url,paramsid,data)=>{
-       
 
-        if(url)
-        {
-            const url=paramsid?`${url}/${paramsid}`:url;
-            setLoading(true);
-            try {
-                const apiResponse=await InstanceBaseUrl.post(url,data);
-                if(apiResponse)
-                {
-                    setResponse(apiResponse?.data);
-                setLoading(false);
-                }
-            } catch (error) {
-                setLoading(false);
-                setError(error?.response?.data?.message);
-            }finally
-            {
-                setLoading(false);
-            }
-        }
-       
+function usePostMethod() {
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const PostDataApi = async (url, paramsid, data) => {
+    const fullUrl = paramsid ? `${url}/${paramsid}` : url;
+    setLoading(true);
+    setError(null); 
+
+    try {
+      const apiResponse = await InstanceBaseUrl.post(fullUrl, data);
+      setResponse(apiResponse?.data);
+    } catch (err) {
+      setError(err?.response?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false);
     }
-  return {PostDataApi,response,loading,error};
+  };
+
+  return { PostDataApi, response, loading, error };
 }
 
-export default PostMethod
+export default usePostMethod;

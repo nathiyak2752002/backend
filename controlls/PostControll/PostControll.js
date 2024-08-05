@@ -3,8 +3,13 @@
 import Post_model from "../../models/Post_model.js"
 
 export const Create=async(req,res)=>{
+
+    console.log(req.body)
     try {
-        const response=await Post_model(req.body);
+        const response=await Post_model({
+            name:req.body.name,
+            age:req.body.age
+        });
         await response.save();
         res.status(201).json({message:"Success",status:true,data:response})
     } catch (error) {
