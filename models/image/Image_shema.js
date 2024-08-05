@@ -10,7 +10,7 @@ const Image_shema_model=new mongoose.Schema({
     }
 },
 {
-    timeseries:true
+    timestamps:true
 })
 mongoose.models={}
 export default mongoose.model("image",Image_shema_model);

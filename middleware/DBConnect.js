@@ -6,7 +6,7 @@ const ConnectDataBase=async()=>{
             console.log("Backend Data Base Connected")
         });
     } catch (error) {
-        
+        console.log(error)
     }
 }
 export default ConnectDataBase;
