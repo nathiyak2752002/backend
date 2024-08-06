@@ -1,7 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import GetMethod from './../../ApiCalls/GetMethod';
 import {useDispatch,useSelector} from 'react-redux'; 
-import { PostMethodAction } from '../../Redux/actions/Actions';
 import usePostMethod from './../../ApiCalls/PostMethod';
 function Home() {
 

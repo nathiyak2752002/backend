@@ -1,9 +1,12 @@
 import multer from "multer";
-const Storage=multer.diskStorage({
-    filename:function(req,file,callback)
+const storage=multer.diskStorage({
+    destination:function(req,file,cb){
+         cb(null,"uploads")
+    },
+    filename:function(req,file,cb)
     {
-        return callback(null,file.originalname)
+        cb(null,`${Date.now()}-${file.originalname}`)
     }
 })
-const upload=multer({Storage});
+const upload=multer({storage:storage});
 export default upload;
