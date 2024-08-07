@@ -4,3 +4,20 @@
   padding:0;
   box-sizing:border-box;
 }
+
+.cursor
+{
+  cursor:pointer;
+}
+.image-card
+{
+  width:130px;
+  height:130px;
+  aspect-ratio: 1 / 1;
+  object-fit:cover;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  
+}

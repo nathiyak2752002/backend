@@ -5,9 +5,7 @@ import 'dotenv/config.js'
 import { AllFiles } from './config/Envfiles.js';
 import ConnectDataBase from './middleware/DBConnect.js';
 import app_router from './routing/Routing.js';
-import schedule from 'node-schedule'
-import multer from "multer";
-import path from 'path'; 
+ 
 const app=express();
 ConnectDataBase()
 app.use(express.json());
@@ -19,8 +17,10 @@ app.get("/",(req,res)=>{
 })
 
 
+app.use(express.static("."))
 
-app.use("/api/",app_router)
+
+app.use("/api",app_router)
 
 
 app.listen(AllFiles.port,()=>{

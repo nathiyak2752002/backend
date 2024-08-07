@@ -7,6 +7,14 @@ const Image_shema_model=new mongoose.Schema({
     name:{
         type:String,
         required:true
+    },
+    bg:{
+        type:String,
+        required:true
+    },
+    description:{
+        type:String,
+        required:true
     }
 },
 {
