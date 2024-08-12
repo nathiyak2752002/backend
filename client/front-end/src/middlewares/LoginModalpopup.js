@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginModalCheck } from '../Redux/reducers/Login_model_reducers';
+import { loginModalCheck, showModalPopup } from '../Redux/reducers/Login_model_reducers';
 import Form from 'react-bootstrap/Form';
+import usePostMethod from './../ApiCalls/PostMethod';
+import { ToastError, ToastSuccess } from './ToastModels';
 function LoginModalpopup() {
+  const {PostDataApi,response,loading,error}=usePostMethod();
   const [user,setUser]=useState({
     email:"",
     password:"",
     userName:""
   });
-
   const {email,password,userName}=user;
   const handleChange=(e)=>{
-    setUser({...user,[e.target.value]:e.target.value})
+    setUser({...user,[e.target.name]:e.target.value})
   }
   const formDatas=[
     {
@@ -30,8 +32,6 @@ function LoginModalpopup() {
       value:email,
       label:"Email",
       type:"email"
-
-
     },
   
     {
@@ -40,8 +40,6 @@ function LoginModalpopup() {
       value:password,
       label:"Password",
       type:"password"
-
-      
     }
   ]
     const dispatch=useDispatch();
@@ -56,24 +54,35 @@ if(state?.loginModal)
 {
     setShow(state?.loginModal)
 }
-},[state])
+},[state,response])
+const registerModal=()=>{
+  dispatch(showModalPopup(true));
+}
+const loginModal=()=>{
+  dispatch(showModalPopup(false));
+}
+const loginUser=()=>{
+
+}
+const registerUser=()=>{
+  const data=user;
+  PostDataApi("/auth/register","",data);
+    handleClose();
+    ToastSuccess(response?.message);
+}
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button> */}
-
       <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal {state?.modalShow?"Register User":"Login User"}</Modal.Title>
+          <Modal.Title>{state?.modalShow?"Register User":"Login User"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           {state?.modalShow?<>
           {formDatas?.map((item,index)=>{
             return(
@@ -114,14 +123,16 @@ if(state?.loginModal)
           })}
           </>}
          <div>
-
+<div className='text-end fw-bold fs-6 cursor' onClick={!state?.modalShow?registerModal:loginModal}>
+  {!state?.modalShow?"Are You New User Register Now":"Already Exit User Login Please"}
+</div>
          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">{state?.modalShow?"Register":"Login"}</Button>
+          <Button variant="primary" onClick={state?.modalShow?registerUser:loginUser}>{state?.modalShow?"Register":"Login"}</Button>
         </Modal.Footer>
       </Modal>
     </>

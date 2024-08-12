@@ -16,7 +16,10 @@ const Login_reducer_model=createSlice({
         loginUserData:(state,action)=>{
             state.loginuserData=action.payload
         },
+        showModalPopup:(state,action)=>{
+            state.modalShow=action.payload
+        }
     }
 });
-export const {loginModalCheck,loginUserData}=Login_reducer_model.actions;
+export const {loginModalCheck,loginUserData,showModalPopup}=Login_reducer_model.actions;
 export default Login_reducer_model.reducer;

@@ -10,15 +10,16 @@ function usePostMethod() {
     setError(null); 
     try {
       const apiResponse = await InstanceBaseUrl.post(fullUrl, data);
-      // setResponse(apiResponse?.data);
-      return apiResponse?.data;
+
+      console.log(apiResponse?.data,'apiResponse')
+      setResponse(apiResponse?.data);
     } catch (err) {
       setError(err?.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
     }
   };
-  return { PostDataApi};
+  return { PostDataApi,response,loading,error};
 }
 
 export default usePostMethod;

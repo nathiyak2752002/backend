@@ -9,8 +9,13 @@ export const Register=async(req,res)=>{
 
         const findExistUser=await Auth_models.findOne({email});
 
-        if(!findExistUser)
+        if(findExistUser)
         {
+
+            res.status(404).json({message:"User already Exists",status:false})
+            
+        }
+        else{
 
             const salt=await bcrypt.genSalt(10);
             const hashedPassword=await bcrypt.hashSync(password,salt)
@@ -23,10 +28,8 @@ const response=await Auth_models({
 await response.save();
 res.status(201).json({message:"User Register Successfully",status:true,data:response})
         }
-        else{
-            res.status(404).json({message:"User already Exists",status:false})
-        }
     } catch (error) {
+        res.status(404).json({message:"Server Error",status:false})
         
     }
 }

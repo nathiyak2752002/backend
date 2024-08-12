@@ -4,7 +4,7 @@ import Cards from './Cards';
 import GetMethod from '../../ApiCalls/GetMethod';
 import LoginModalpopup from '../../middlewares/LoginModalpopup';
 import { useDispatch, useSelector } from 'react-redux';
-
+import ReactPlayer from 'react-player'
 function Home() {
 
   const state=useSelector((state)=>state?.Login);
@@ -27,6 +27,14 @@ function Home() {
   {
     <div>{error}</div>
   }
+
+
+  const playing=(params)=>{
+    console.log(params);
+    window.alert("kalai")
+  }
+
+
   return (
     <div>
 <div>
@@ -41,10 +49,37 @@ function Home() {
   state={state?.loginModal}
   />
 </div>
+
+
+
+<ReactPlayer url='https://www.youtube.com/watch?v=RGYQ-_lAnRs' 
+
+// onPlayPause={playPauseHandler}
+           playing={playing}
+           controls={true}
+          //  onRewind={rewindHandler}
+          //  onForward={handleFastFoward}
+          //  played={played}
+          //  onSeek={seekHandler}
+          //  onSeekMouseUp={seekMouseUpHandler}
+          //  volume ={volume}
+          //  onVolumeChangeHandler = {volumeChangeHandler}
+          //  onVolumeSeekUp = {volumeSeekUpHandler}
+          //  mute = {muted}
+          //  onMute = {muteHandler}
+          //  playRate = {playbackRate}
+          //  onPlayRate = {playBackRateHandler}
+          //  duration = {formatDuration}
+          //  currentTime = {formatCurrentTime}
+/>
+
+
+
+
 <div>
   <Cards response={response}/>
 </div>
-    </div>
+</div>
   )
 }
 
