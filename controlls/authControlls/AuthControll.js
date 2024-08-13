@@ -2,6 +2,7 @@
 
 import Auth_models from "../../models/Auth_models.js";
 import bcrypt from 'bcrypt';
+import cron from 'node-cron';
 export const Register=async(req,res)=>{
     try {
         
@@ -32,6 +33,31 @@ res.status(201).json({message:"User Register Successfully",status:true,data:resp
         res.status(404).json({message:"Server Error",status:false})
         
     }
+}
+
+
+function Mailsend()
+{
+    console.log("welcome to Hari and Vinu Love")
+}
+
+
+
+const filt=new Date();
+
+console.log(filt.getDate(),filt.getMonth()+1)
+
+
+try {
+
+    if(filt.getDate()===13,filt.getMonth()+1===8)
+    {
+        console.log("kalai")
+    cron.schedule('33 15 * * * ', Mailsend);
+
+    }
+} catch (error) {
+    throw new Error(`Failed to schedule cron job: ${error.message}`);
 }
 
 // login
