@@ -41,13 +41,8 @@ function Mailsend()
     console.log("welcome to Hari and Vinu Love")
 }
 
-
-
 const filt=new Date();
-
 console.log(filt.getDate(),filt.getMonth()+1)
-
-
 try {
 
     if(filt.getDate()===13,filt.getMonth()+1===8)
